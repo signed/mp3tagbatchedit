@@ -19,13 +19,12 @@ public class GetStarted {
     @Test
     public void testName() throws Exception {
         FileSystem fileSystem = FileSystems.getDefault();
-        Path path = fileSystem.getPath("mp3");
+        Path path = fileSystem.getPath("/home/signed/tmp/17.Die zerbrochene Krone/teil1/");
         Mp3Album album = Mp3Album.For(path);
         //album.forEachMp3File(new SetTitleToFileName());
-        //album.forEachMp3File(new DumpAllTags());
-        album.forEachMp3File(new SetTrackNumber());
+        album.forEachMp3File(new DumpAllTags());
+        //album.forEachMp3File(new SetTrackNumber());
     }
-
 
     @Test
     public void forTheFirstFile() throws Exception {
@@ -38,29 +37,4 @@ public class GetStarted {
         new SetTitleToFileName().call(context);
     }
 
-    private static class SetTitleToFileName extends ExceptionTranslatingCallback<Mp3Album.Context> {
-        @Override
-        protected void callWithoutConstraint(Mp3Album.Context context) throws Exception {
-            Mp3 mp3 = context.currentTrack;
-            Path path = context.currentTracksPath;
-            mp3.setTitleTo(path.getFileName().toString());
-        }
-    }
-
-    private static class DumpAllTags extends ExceptionTranslatingCallback<Mp3Album.Context> {
-        @Override
-        protected void callWithoutConstraint(Mp3Album.Context context) throws Exception {
-            System.out.println("-...-...-");
-            context.currentTrack.dumpAllTags();
-        }
-    }
-
-    private static class SetTrackNumber extends ExceptionTranslatingCallback<Mp3Album.Context> {
-        @Override
-        protected void callWithoutConstraint(Mp3Album.Context context) throws Exception {
-            Mp3 track = context.currentTrack;
-            track.setTrackNumberTo(context.trackNumber, context.totalNumberOfTracks);
-            track.saveChanges();
-        }
-    }
 }
