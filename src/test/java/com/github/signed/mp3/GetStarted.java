@@ -22,7 +22,7 @@ public class GetStarted {
         FileSystem fileSystem = FileSystems.getDefault();
         Path path = fileSystem.getPath("/home/signed/tmp/20.Die Schale der Winde/");
         Mp3Album album = Mp3Album.For(path);
-        album.forEachMp3File(new SetTitleToFileName());
+        //album.forEachMp3File(new SetTitleToFileName());
         //album.forEachMp3File(new SetTrackNumber());
         album.forEachMp3File(new DumpAllTags());
     }

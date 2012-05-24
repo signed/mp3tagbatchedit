@@ -7,18 +7,17 @@ import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.FieldDataInvalidException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.TagException;
-import org.jaudiotagger.tag.TagField;
-import org.jaudiotagger.tag.id3.AbstractID3v2Frame;
-import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
+import org.jaudiotagger.tag.id3.AbstractTagFrameBody;
 import org.jaudiotagger.tag.id3.ID3v24Frames;
-import org.jaudiotagger.tag.id3.ID3v24Tag;
 import org.jaudiotagger.tag.id3.framebody.AbstractFrameBodyTextInfo;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTRCK;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Iterator;
+
+import static org.jaudiotagger.tag.FieldKey.TITLE;
+import static org.jaudiotagger.tag.id3.ID3v24Frames.FRAME_ID_TITLE;
 
 public class Mp3 {
 
@@ -33,9 +32,11 @@ public class Mp3 {
     }
 
     private MP3File mp3File;
+    private final Tags tags;
 
     public Mp3(MP3File mp3File) {
         this.mp3File = mp3File;
+        this.tags = Tags.ExtractFrom(mp3File);
     }
 
     public void saveChanges() {
@@ -47,67 +48,26 @@ public class Mp3 {
     }
 
     public void setTitleTo(String newTitle) throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException {
-        ID3v24Tag tags = getTags();
+        AbstractTagFrameBody body1 = tags.getFrameFor(FRAME_ID_TITLE, TITLE);
 
-        AbstractID3v2Frame titleFrame = tags.getFirstField(ID3v24Frames.FRAME_ID_TITLE);
-        if(null == titleFrame) {
-            AbstractID3v2Frame frame = (AbstractID3v2Frame)tags.createField(FieldKey.TITLE, "initial");
-            tags.setFrame(frame);
-        }
-        titleFrame = tags.getFirstField(ID3v24Frames.FRAME_ID_TITLE);
-        AbstractFrameBodyTextInfo body = (AbstractFrameBodyTextInfo) titleFrame.getBody();
+        AbstractFrameBodyTextInfo body = (AbstractFrameBodyTextInfo) body1;
         String oldTitle = body.getText();
         System.out.println("old title: " + oldTitle);
         System.out.println("new title: " + newTitle);
         body.setText(newTitle);
     }
 
-    public void setTrackNumberTo(Integer current, Integer total) {
-        ID3v24Tag tags = getTags();
-        try {
-            AbstractID3v2Frame frame = (AbstractID3v2Frame) tags.createField(FieldKey.TRACK, "-1");
-            FrameBodyTRCK body = (FrameBodyTRCK) frame.getBody();
-            System.out.println("before: " + body.getUserFriendlyValue());
-            body.setTrackNo(current);
-            body.setTrackTotal(total);
-            tags.setFrame(frame);
-            System.out.println("after: " + body.getUserFriendlyValue());
-            System.out.println("track number set to: " + body.getUserFriendlyValue());
-        } catch (FieldDataInvalidException e) {
-            throw new RuntimeException(e);
-        }
+    public void setTrackNumberTo(Integer current, Integer total) throws FieldDataInvalidException {
+        AbstractTagFrameBody box = tags.getFrameFor(ID3v24Frames.FRAME_ID_TRACK, FieldKey.TRACK);
+        FrameBodyTRCK body = (FrameBodyTRCK) box;
+        System.out.println("before: " + body.getUserFriendlyValue());
+        body.setTrackNo(current);
+        body.setTrackTotal(total);
+        System.out.println("after: " + body.getUserFriendlyValue());
+        System.out.println("track number set to: " + body.getUserFriendlyValue());
     }
 
     public void dumpAllTags() {
-        AbstractID3v2Tag tags = getTags();
-        Iterator<TagField> iterator = tags.getFields();
-        while (iterator.hasNext()) {
-            TagField next = iterator.next();
-
-            if (next instanceof AbstractID3v2Frame) {
-                AbstractID3v2Frame frame = (AbstractID3v2Frame) next;
-                String value;
-                if (frame.getBody() instanceof AbstractFrameBodyTextInfo) {
-                    AbstractFrameBodyTextInfo textBody = (AbstractFrameBodyTextInfo) frame.getBody();
-                    value = textBody.getText();
-                } else if (frame.getBody() instanceof FrameBodyTRCK) {
-                    FrameBodyTRCK body = (FrameBodyTRCK) frame.getBody();
-                    value = body.getUserFriendlyValue();
-                } else {
-                    value = frame.toString();
-                }
-                String id = frame.getId();
-                System.out.println(id + " : " + value);
-            } else {
-                throw new RuntimeException();
-            }
-        }
-    }
-
-    private ID3v24Tag getTags() {
-        if (!mp3File.hasID3v2Tag()) {
-            mp3File.setID3v2Tag(new ID3v24Tag());
-        }
-        return (ID3v24Tag) mp3File.getID3v2Tag();
+        tags.dumpTagsTo(System.out);
     }
 }
