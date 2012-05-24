@@ -8,5 +8,6 @@ class SetTitleToFileName extends ExceptionTranslatingCallback<Mp3Album.Context> 
         Mp3 mp3 = context.currentTrack;
         Path path = context.currentTracksPath;
         mp3.setTitleTo(path.getFileName().toString());
+        mp3.saveChanges();
     }
 }
