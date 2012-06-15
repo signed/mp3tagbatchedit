@@ -9,7 +9,7 @@
 The following commands are available
 
 ## DumpAllTags
-Writes the Tags for each file to System.out
+Writes the Tags for each file to `System.out`
 ## SetTrackNumber
 Lists all mp3 files in the passed folder an sorts them by name. The first file in the list gets track number 1, the second track number 2, ...
 ## SetTitleToFileName
