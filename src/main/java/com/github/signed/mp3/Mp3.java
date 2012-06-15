@@ -48,23 +48,42 @@ public class Mp3 {
     }
 
     public void setTitleTo(String newTitle) throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException {
-        AbstractTagFrameBody body1 = tags.getFrameFor(FRAME_ID_TITLE, TITLE);
-
-        AbstractFrameBodyTextInfo body = (AbstractFrameBodyTextInfo) body1;
+        AbstractFrameBodyTextInfo body = getTitleTag();
         String oldTitle = body.getText();
         System.out.println("old title: " + oldTitle);
         System.out.println("new title: " + newTitle);
         body.setText(newTitle);
     }
 
+    private AbstractFrameBodyTextInfo getTitleTag() {
+        try {
+            AbstractTagFrameBody body1 = tags.getFrameFor(FRAME_ID_TITLE, TITLE);
+            return (AbstractFrameBodyTextInfo) body1;
+        } catch (FieldDataInvalidException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void provideTitleTo(ExceptionTranslatingCallback<String> callback) {
+        callback.call(getTitleTag().getText());
+    }
+
     public void setTrackNumberTo(Integer current, Integer total) throws FieldDataInvalidException {
-        AbstractTagFrameBody box = tags.getFrameFor(ID3v24Frames.FRAME_ID_TRACK, FieldKey.TRACK);
-        FrameBodyTRCK body = (FrameBodyTRCK) box;
+        FrameBodyTRCK body = getTrackTag();
         System.out.println("before: " + body.getUserFriendlyValue());
         body.setTrackNo(current);
         body.setTrackTotal(total);
         System.out.println("after: " + body.getUserFriendlyValue());
         System.out.println("track number set to: " + body.getUserFriendlyValue());
+    }
+
+    private FrameBodyTRCK getTrackTag() {
+        try {
+            AbstractTagFrameBody box = tags.getFrameFor(ID3v24Frames.FRAME_ID_TRACK, FieldKey.TRACK);
+            return (FrameBodyTRCK) box;
+        } catch (FieldDataInvalidException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void dumpAllTags() {

@@ -37,7 +37,7 @@ public class Tags {
     public AbstractTagFrameBody getFrameFor(String id3v24FrameKey, FieldKey genericFieldKey) throws FieldDataInvalidException {
         AbstractID3v2Frame titleFrame = tags.getFirstField(id3v24FrameKey);
         if (null == titleFrame) {
-            AbstractID3v2Frame frame = (AbstractID3v2Frame) tags.createField(genericFieldKey, "initial");
+            AbstractID3v2Frame frame = (AbstractID3v2Frame) tags.createField(genericFieldKey, "0");
             tags.setFrame(frame);
         }
         titleFrame = tags.getFirstField(id3v24FrameKey);

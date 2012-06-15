@@ -20,16 +20,17 @@ public class GetStarted {
     @Test
     public void testName() throws Exception {
         FileSystem fileSystem = FileSystems.getDefault();
-        Path path = fileSystem.getPath("/home/signed/tmp/20.Die Schale der Winde/");
+        Path path = fileSystem.getPath("a/folder/with/some/mp3");
         Mp3Album album = Mp3Album.For(path);
         //album.forEachMp3File(new SetTitleToFileName());
+        album.forEachMp3File(new PrependTrackNumberToTitle());
         //album.forEachMp3File(new SetTrackNumber());
-        album.forEachMp3File(new DumpAllTags());
+        //album.forEachMp3File(new DumpAllTags());
     }
 
     @Test
     public void forASingleFile() throws Exception {
-        Path singleMp3 = Paths.get("/home/signed/dev/arbeitskopie/mystuff/mp3tagbatcheditor/src/test/resources/sample/whitenoise.mp3");
+        Path singleMp3 = Paths.get("some.mp3");
         Mp3Album.Context context = new Mp3Album.Context(1, 1, singleMp3, Mp3.From(singleMp3));
         new DumpAllTags().call(context);
         //new SetTrackNumber().call(context);
