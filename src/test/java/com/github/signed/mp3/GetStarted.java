@@ -3,10 +3,10 @@ package com.github.signed.mp3;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,13 +19,27 @@ public class GetStarted {
 
     @Test
     public void testName() throws Exception {
-        FileSystem fileSystem = FileSystems.getDefault();
-        Path path = fileSystem.getPath("a/folder/with/some/mp3");
+        Path path = Paths.get("/home/signed/tmp/candidates/");
+
         Mp3Album album = Mp3Album.For(path);
         //album.forEachMp3File(new SetTitleToFileName());
-        album.forEachMp3File(new PrependTrackNumberToTitle());
+        //album.forEachMp3File(new PrependTrackNumberToTitle());
         //album.forEachMp3File(new SetTrackNumber());
-        //album.forEachMp3File(new DumpAllTags());
+        //album.forEachMp3File(new SetAlbum("Das Rad der Zeit 28 - Die weiße Burg"));
+        //album.forEachMp3File(new CheckForMissingArtist());
+        album.forEachMp3File(new DumpAllTags());
+    }
+
+
+    @Test
+    public void forACollectionOfFiles() throws Exception {
+        Collection<Path> filePaths = new ArrayList<>();
+
+        for (Path filePath : filePaths) {
+            Mp3Album.Context context = new Mp3Album.Context(1, 1, filePath, Mp3.From(filePath));
+            //new DumpAllTags().call(context);
+            new DumpAllTags().call(context);
+        }
     }
 
     @Test
@@ -40,4 +54,5 @@ public class GetStarted {
 //        context = new Mp3Album.Context(1, 1, singleMp3, Mp3.From(reloaded));
 //        new DumpAllTags().call(context);
     }
+
 }

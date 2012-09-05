@@ -35,10 +35,10 @@ public class Mp3Album {
             final int totalNumberOfTracks = allPath.size();
             int currentTrackNumber = 1;
 
-            for (Path p : allPath) {
-                System.out.println(p);
-                Mp3 currentMp3 = Mp3.From(p);
-                Context context = new Context(totalNumberOfTracks, currentTrackNumber, p, currentMp3);
+            for (Path path : allPath) {
+                //System.out.println(p);
+                Mp3 currentMp3 = Mp3.From(path);
+                Context context = new Context(totalNumberOfTracks, currentTrackNumber, path, currentMp3);
                 callback.call(context);
                 ++currentTrackNumber;
             }

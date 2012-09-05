@@ -10,6 +10,7 @@ import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.id3.AbstractTagFrameBody;
 import org.jaudiotagger.tag.id3.ID3v24Frames;
 import org.jaudiotagger.tag.id3.framebody.AbstractFrameBodyTextInfo;
+import org.jaudiotagger.tag.id3.framebody.FrameBodyTALB;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTRCK;
 
 import java.io.File;
@@ -17,6 +18,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import static org.jaudiotagger.tag.FieldKey.TITLE;
+import static org.jaudiotagger.tag.id3.ID3v24Frames.FRAME_ID_ACCOMPANIMENT;
+import static org.jaudiotagger.tag.id3.ID3v24Frames.FRAME_ID_ALBUM;
+import static org.jaudiotagger.tag.id3.ID3v24Frames.FRAME_ID_ARTIST;
 import static org.jaudiotagger.tag.id3.ID3v24Frames.FRAME_ID_TITLE;
 
 public class Mp3 {
@@ -47,6 +51,19 @@ public class Mp3 {
         }
     }
 
+    public void isAuthorSet(){
+        dumpNotExistingTag(FRAME_ID_ARTIST);
+        dumpNotExistingTag(FRAME_ID_ACCOMPANIMENT);
+    }
+
+    private void dumpNotExistingTag(String tagId){
+        boolean has = tags.hasFrameFor(tagId);
+        if(!has){
+            System.out.println(mp3File.getFile().getAbsolutePath());
+            System.out.println(tagId + ": n.a.");
+        }
+    }
+
     public void setTitleTo(String newTitle) throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException {
         AbstractFrameBodyTextInfo body = getTitleTag();
         String oldTitle = body.getText();
@@ -56,12 +73,8 @@ public class Mp3 {
     }
 
     private AbstractFrameBodyTextInfo getTitleTag() {
-        try {
-            AbstractTagFrameBody body1 = tags.getFrameFor(FRAME_ID_TITLE, TITLE);
-            return (AbstractFrameBodyTextInfo) body1;
-        } catch (FieldDataInvalidException e) {
-            throw new RuntimeException(e);
-        }
+        AbstractTagFrameBody body1 = tags.createFrameFor(FRAME_ID_TITLE, TITLE);
+        return (AbstractFrameBodyTextInfo) body1;
     }
 
     public void provideTitleTo(ExceptionTranslatingCallback<String> callback) {
@@ -78,15 +91,21 @@ public class Mp3 {
     }
 
     private FrameBodyTRCK getTrackTag() {
-        try {
-            AbstractTagFrameBody box = tags.getFrameFor(ID3v24Frames.FRAME_ID_TRACK, FieldKey.TRACK);
-            return (FrameBodyTRCK) box;
-        } catch (FieldDataInvalidException e) {
-            throw new RuntimeException(e);
-        }
+        AbstractTagFrameBody box = tags.createFrameFor(ID3v24Frames.FRAME_ID_TRACK, FieldKey.TRACK);
+        return (FrameBodyTRCK) box;
     }
 
     public void dumpAllTags() {
         tags.dumpTagsTo(System.out);
+    }
+
+    public void setAlbumName(String albumName) {
+        FrameBodyTALB frameBodyTALB = getAlbumFrame();
+        frameBodyTALB.setText(albumName);
+    }
+
+    private FrameBodyTALB getAlbumFrame() {
+        AbstractTagFrameBody body = tags.createFrameFor(FRAME_ID_ALBUM, FieldKey.ALBUM);
+        return (FrameBodyTALB) body;
     }
 }
