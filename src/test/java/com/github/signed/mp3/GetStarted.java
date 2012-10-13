@@ -19,14 +19,14 @@ public class GetStarted {
 
     @Test
     public void testName() throws Exception {
-        Path path = Paths.get("/home/signed/tmp/candidates/");
+        Path path = Paths.get("/path/to/album");
 
         Mp3Album album = Mp3Album.For(path);
-        //album.forEachMp3File(new SetTitleToFileName());
-        //album.forEachMp3File(new PrependTrackNumberToTitle());
-        //album.forEachMp3File(new SetTrackNumber());
-        //album.forEachMp3File(new SetAlbum("Das Rad der Zeit 28 - Die weiße Burg"));
-        //album.forEachMp3File(new CheckForMissingArtist());
+        album.forEachMp3File(new SetTitleToFileName());
+        album.forEachMp3File(new PrependTrackNumberToTitle());
+        album.forEachMp3File(new SetTrackNumber());
+        album.forEachMp3File(new SetAlbum("The incredible bunch"));
+        album.forEachMp3File(new CheckForMissingArtist());
         album.forEachMp3File(new DumpAllTags());
     }
 
