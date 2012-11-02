@@ -1,5 +1,8 @@
 package com.github.signed.mp3;
 
+import com.github.signed.mp3.title.PrependTrackNumberToTitle;
+import com.github.signed.mp3.title.StripLeadingDigits;
+import com.github.signed.mp3.title.UpdateTitle;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,11 +25,12 @@ public class GetStarted {
         Path path = Paths.get("/path/to/album");
 
         Mp3Album album = Mp3Album.For(path);
-        album.forEachMp3File(new SetTitleToFileName());
-        album.forEachMp3File(new PrependTrackNumberToTitle());
-        album.forEachMp3File(new SetTrackNumber());
-        album.forEachMp3File(new SetAlbum("The incredible bunch"));
-        album.forEachMp3File(new CheckForMissingArtist());
+        //album.forEachMp3File(new SetTitleToFileName());
+        album.forEachMp3File(new UpdateTitle(new StripLeadingDigits()));
+        album.forEachMp3File(new UpdateTitle(new PrependTrackNumberToTitle()));
+        //album.forEachMp3File(new SetTrackNumber());
+        //album.forEachMp3File(new SetAlbum("The incredible bunch"));
+        //album.forEachMp3File(new CheckForMissingArtist());
         album.forEachMp3File(new DumpAllTags());
     }
 
