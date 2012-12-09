@@ -82,7 +82,9 @@ public class Mp3 {
     }
 
     public void provideTitleTo(ExceptionTranslatingCallback<String> callback) {
-        callback.call(getTitleTag().getText());
+        if(tags.hasFrameFor(FRAME_ID_TITLE)){
+            callback.call(getTitleTag().getText());
+        }
     }
 
     public void setTrackNumberTo(Integer current, Integer total) throws FieldDataInvalidException {
@@ -111,5 +113,9 @@ public class Mp3 {
     private FrameBodyTALB getAlbumFrame() {
         AbstractTagFrameBody body = tags.createFrameFor(FRAME_ID_ALBUM, FieldKey.ALBUM);
         return (FrameBodyTALB) body;
+    }
+
+    public void dropTitle() {
+        tags.dropFrameFor(FRAME_ID_TITLE);
     }
 }
