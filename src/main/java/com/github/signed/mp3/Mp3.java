@@ -115,7 +115,7 @@ public class Mp3 {
         return (FrameBodyTALB) body;
     }
 
-    public void dropTitle() {
-        tags.dropFrameFor(FRAME_ID_TITLE);
+    public void drop(Tag tag){
+        tags.dropFrameFor(tag);
     }
 }

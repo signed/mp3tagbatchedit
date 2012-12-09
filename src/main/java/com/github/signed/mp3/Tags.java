@@ -42,8 +42,8 @@ public class Tags {
         return tags.hasFrameAndBody(id3v24FrameKey);
     }
 
-    public void dropFrameFor(String id3v24FrameKey){
-        tags.deleteField(id3v24FrameKey);
+    public void dropFrameFor(Tag tag){
+        tags.deleteField(tag.frameId());
     }
 
     public AbstractTagFrameBody createFrameFor(String id3v24FrameKey, FieldKey genericFieldKey){
