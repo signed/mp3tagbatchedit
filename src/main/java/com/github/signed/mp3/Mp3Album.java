@@ -37,7 +37,6 @@ public class Mp3Album {
             int currentTrackNumber = 1;
 
             for (Path path : allPath) {
-                System.out.println(path);
                 Mp3 currentMp3 = Mp3.From(path);
                 Context context = new Context(totalNumberOfTracks, currentTrackNumber, path, currentMp3);
                 callback.call(context);

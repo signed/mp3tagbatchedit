@@ -38,7 +38,7 @@ public class Mp3_Test {
     @Test
     public void dropTag() throws Exception {
         Mp3 mp3 = this.samples.whiteNoise();
-        mp3.drop(Tag.TITLE);
+        mp3.drop(Tag.Title);
         mp3.saveChanges();
 
         Mp3 reloaded = Mp3.From(mp3);
