@@ -23,8 +23,9 @@ public class Mp3Album {
     }
 
     public void forEachMp3File(Callback<Context> callback){
-        try (DirectoryStream<Path> ds = Files.newDirectoryStream(path, "*.samples")) {
-            List<Path> allPath = Lists.newArrayList(ds);
+        System.out.println("process album at '"+path+"'");
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(path, "*.mp3")) {
+            List<Path> allPath = Lists.newArrayList(directoryStream);
             Collections.sort(allPath, new Comparator<Path>() {
                 @Override
                 public int compare(Path o1, Path o2) {
@@ -36,7 +37,7 @@ public class Mp3Album {
             int currentTrackNumber = 1;
 
             for (Path path : allPath) {
-                //System.out.println(p);
+                System.out.println(path);
                 Mp3 currentMp3 = Mp3.From(path);
                 Context context = new Context(totalNumberOfTracks, currentTrackNumber, path, currentMp3);
                 callback.call(context);
