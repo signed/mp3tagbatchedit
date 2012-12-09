@@ -1,22 +1,19 @@
 package com.github.signed.mp3;
 
-import org.apache.commons.io.IOUtils;
-import org.jaudiotagger.audio.mp3.MP3File;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class Mp3_Test {
 
     @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
+    public Mp3Rule samples = new Mp3Rule();
 
     @Before
     public void setUp() throws Exception {
@@ -25,19 +22,15 @@ public class Mp3_Test {
 
     @Test
     public void testName() throws Exception {
-        InputStream resourceAsStream = Mp3_Test.class.getClassLoader().getResourceAsStream("sample/whitenoise.mp3");
-        File mp3File = folder.newFile();
-        FileOutputStream out = new FileOutputStream(mp3File);
-
-        IOUtils.copy(resourceAsStream, out);
-
-        Mp3 mp3 = new Mp3(new MP3File(mp3File));
+        Mp3 mp3 = this.samples.whiteNoise();
         mp3.setTitleTo("the new one");
-        mp3.setTrackNumberTo(7, 7);
         mp3.saveChanges();
 
+        Mp3 reloaded = Mp3.From(mp3);
 
-        Mp3 reload = new Mp3(new MP3File(mp3File));
-        reload.dumpAllTags();
+        ExceptionTranslatingCallback<String> callback = mock(ExceptionTranslatingCallback.class);
+        reloaded.provideTitleTo(callback);
+
+        verify(callback).call("the new one");
     }
 }

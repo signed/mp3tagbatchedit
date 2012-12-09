@@ -23,7 +23,7 @@ public class Mp3Album {
     }
 
     public void forEachMp3File(Callback<Context> callback){
-        try (DirectoryStream<Path> ds = Files.newDirectoryStream(path, "*.mp3")) {
+        try (DirectoryStream<Path> ds = Files.newDirectoryStream(path, "*.samples")) {
             List<Path> allPath = Lists.newArrayList(ds);
             Collections.sort(allPath, new Comparator<Path>() {
                 @Override

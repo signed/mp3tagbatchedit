@@ -25,6 +25,10 @@ import static org.jaudiotagger.tag.id3.ID3v24Frames.FRAME_ID_TITLE;
 
 public class Mp3 {
 
+    public static Mp3 From(Mp3 mp3){
+        return From(mp3.mp3File.getFile().toPath());
+    }
+
     public static Mp3 From(Path path) {
         try {
             File file = path.toFile();
