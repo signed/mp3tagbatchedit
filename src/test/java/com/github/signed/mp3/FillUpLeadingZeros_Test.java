@@ -11,9 +11,7 @@ public class FillUpLeadingZeros_Test {
 
     @Test
     public void prependMissingZeros() throws Exception {
-
         assertThat(fillUp.fillUp("1 - Name"), is("001 - Name"));
-
     }
 
     @Test
@@ -26,5 +24,4 @@ public class FillUpLeadingZeros_Test {
     public void onMissingDigitsAtStartOfString() throws Exception {
         fillUp.fillUp(" - Name");
     }
-
 }
