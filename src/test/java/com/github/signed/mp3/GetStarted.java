@@ -18,8 +18,8 @@ public class GetStarted {
     }
 
     @Test
-    public void testName() throws Exception {
-        Path path = Paths.get("/path/to/album");
+    public void executeOnAlbum() throws Exception {
+        Path path = Paths.get("/home/signed/entpacken/to_backup/Das Rad der Zeit 33 - Die Macht des Lichts/");
 
         Mp3Album album = Mp3Album.For(path);
         //album.forEachMp3File(new FillUpLeadingZeros(3));
@@ -27,7 +27,7 @@ public class GetStarted {
         //album.forEachMp3File(new UpdateTitle(new StripLeadingDigits()));
         //album.forEachMp3File(new UpdateTitle(new PrependTrackNumberToTitle()));
         //album.forEachMp3File(new SetTrackNumber());
-        album.forEachMp3File(new SetAlbum("Incredible Album"));
+        //album.forEachMp3File(new SetAlbum("Incredible Album"));
         //album.forEachMp3File(new CheckForMissingArtist());
         //album.forEachMp3File(new DropTag(Tag.Copyright));
         album.forEachMp3File(new DumpAllTags());
