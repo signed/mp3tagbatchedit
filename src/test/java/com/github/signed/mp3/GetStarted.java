@@ -19,7 +19,7 @@ public class GetStarted {
 
     @Test
     public void executeOnAlbum() throws Exception {
-        Path path = Paths.get("/home/signed/entpacken/to_backup/Das Rad der Zeit 33 - Die Macht des Lichts/");
+        Path path = Paths.get("/home/directory/");
 
         Mp3Album album = Mp3Album.For(path);
         //album.forEachMp3File(new FillUpLeadingZeros(3));
