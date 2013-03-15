@@ -11,6 +11,8 @@ import org.jaudiotagger.tag.id3.ID3v24Tag;
 import org.jaudiotagger.tag.id3.framebody.AbstractFrameBodyTextInfo;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyAPIC;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
+import org.jaudiotagger.tag.id3.framebody.FrameBodyMCDI;
+import org.jaudiotagger.tag.id3.framebody.FrameBodyPRIV;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTALB;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTRCK;
 
@@ -42,11 +44,11 @@ public class Tags {
         return tags.hasFrameAndBody(id3v24FrameKey);
     }
 
-    public void dropFrameFor(Tag tag){
+    public void dropFrameFor(Tag tag) {
         tags.deleteField(tag.frameId());
     }
 
-    public AbstractTagFrameBody createFrameFor(String id3v24FrameKey, FieldKey genericFieldKey){
+    public AbstractTagFrameBody createFrameFor(String id3v24FrameKey, FieldKey genericFieldKey) {
         try {
             AbstractID3v2Frame titleFrame = tags.getFirstField(id3v24FrameKey);
             if (null == titleFrame) {
@@ -68,26 +70,33 @@ public class Tags {
             if (next instanceof AbstractID3v2Frame) {
                 AbstractID3v2Frame frame = (AbstractID3v2Frame) next;
                 String value;
-                if (frame.getBody() instanceof FrameBodyTALB) {
-                    FrameBodyTALB body = (FrameBodyTALB)frame.getBody();
+                AbstractTagFrameBody abstractBody = frame.getBody();
+                if (abstractBody instanceof FrameBodyTALB) {
+                    FrameBodyTALB body = (FrameBodyTALB) abstractBody;
                     value = body.getUserFriendlyValue();
-                } else if (frame.getBody() instanceof AbstractFrameBodyTextInfo) {
-                    AbstractFrameBodyTextInfo textBody = (AbstractFrameBodyTextInfo) frame.getBody();
+                } else if (abstractBody instanceof AbstractFrameBodyTextInfo) {
+                    AbstractFrameBodyTextInfo textBody = (AbstractFrameBodyTextInfo) abstractBody;
                     value = textBody.getText();
-                } else if (frame.getBody() instanceof FrameBodyTRCK) {
-                    FrameBodyTRCK body = (FrameBodyTRCK) frame.getBody();
+                } else if (abstractBody instanceof FrameBodyTRCK) {
+                    FrameBodyTRCK body = (FrameBodyTRCK) abstractBody;
                     value = body.getUserFriendlyValue();
-                } else if (frame.getBody() instanceof FrameBodyCOMM) {
-                    FrameBodyCOMM body = (FrameBodyCOMM) frame.getBody();
+                } else if (abstractBody instanceof FrameBodyCOMM) {
+                    FrameBodyCOMM body = (FrameBodyCOMM) abstractBody;
                     value = "\n\tdescription: " + body.getDescription();
                     value += "\n\tlanguage   :" + body.getLanguage();
                     value += "\n\ttext       :" + body.getText();
                     value += "\n\tfriendly   :" + body.getUserFriendlyValue();
-                } else if (frame.getBody() instanceof FrameBodyAPIC) {
-                    FrameBodyAPIC body = (FrameBodyAPIC) frame.getBody();
+                } else if (abstractBody instanceof FrameBodyAPIC) {
+                    FrameBodyAPIC body = (FrameBodyAPIC) abstractBody;
+                    value = body.getUserFriendlyValue();
+                } else if (abstractBody instanceof FrameBodyMCDI) {
+                    FrameBodyMCDI body = (FrameBodyMCDI) abstractBody;
+                    value = body.getUserFriendlyValue();
+                }else if (abstractBody instanceof FrameBodyPRIV) {
+                    FrameBodyPRIV body = (FrameBodyPRIV) abstractBody;
                     value = body.getUserFriendlyValue();
                 } else {
-                    value = frame.toString();
+                    value = abstractBody.getClass().getCanonicalName();
                 }
                 String id = frame.getId();
                 out.println(id + " : " + value);
