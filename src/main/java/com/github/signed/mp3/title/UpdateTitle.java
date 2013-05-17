@@ -20,6 +20,11 @@ public class UpdateTitle extends ExceptionTranslatingCallback<Mp3Album.Context> 
             protected void callWithoutConstraint(String title) throws Exception {
                 track.setTitleTo(titleProvider.getTitle(title, context));
             }
+
+            @Override
+            protected void fallbackWithoutConstraint() throws Exception {
+                track.setTitleTo(titleProvider.getTitle("", context));
+            }
         });
         track.saveChanges();
     }

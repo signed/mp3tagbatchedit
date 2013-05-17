@@ -21,7 +21,7 @@ public abstract class ExceptionTranslatingCallback<T> implements  CallbackWithFa
 
     protected abstract void callWithoutConstraint(T first) throws Exception;
 
-    protected void fallbackWithoutConstraint(){
+    protected void fallbackWithoutConstraint() throws Exception {
         //do nothing
     }
 }
