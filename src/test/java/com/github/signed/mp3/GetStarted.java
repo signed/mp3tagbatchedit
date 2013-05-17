@@ -24,8 +24,10 @@ public class GetStarted {
         Mp3Album album = Mp3Album.For(path);
         //album.forEachMp3File(new FillUpLeadingZeros(3));
         //album.forEachMp3File(new SetTitleToFileName());
+        //album.forEachMp3File(new UpdateTitle(new RegexFromFileName()));
         //album.forEachMp3File(new UpdateTitle(new StripLeadingDigits()));
         //album.forEachMp3File(new UpdateTitle(new PrependTrackNumberToTitle()));
+        //album.forEachMp3File(new UpdateTitle(new RegexFromFileName()));
         //album.forEachMp3File(new SetTrackNumber());
         //album.forEachMp3File(new SetAlbum("Incredible Album"));
         //album.forEachMp3File(new CheckForMissingArtist());
