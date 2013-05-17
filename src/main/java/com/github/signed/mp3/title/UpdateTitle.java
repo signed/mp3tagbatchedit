@@ -3,6 +3,12 @@ package com.github.signed.mp3.title;
 import com.github.signed.mp3.ExceptionTranslatingCallback;
 import com.github.signed.mp3.Mp3;
 import com.github.signed.mp3.Mp3Album;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.tag.TagException;
+
+import java.io.IOException;
 
 public class UpdateTitle extends ExceptionTranslatingCallback<Mp3Album.Context> {
     private final TitleProvider titleProvider;
@@ -18,12 +24,16 @@ public class UpdateTitle extends ExceptionTranslatingCallback<Mp3Album.Context> 
 
             @Override
             protected void callWithoutConstraint(String title) throws Exception {
-                track.setTitleTo(titleProvider.getTitle(title, context));
+                updateTrackTitle(title);
             }
 
             @Override
             protected void fallbackWithoutConstraint() throws Exception {
-                track.setTitleTo(titleProvider.getTitle("", context));
+                updateTrackTitle("");
+            }
+
+            private void updateTrackTitle(String currentTitle) throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException {
+                track.setTitleTo(titleProvider.getTitle(currentTitle, context));
             }
         });
         track.saveChanges();
