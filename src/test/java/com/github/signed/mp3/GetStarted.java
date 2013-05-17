@@ -19,7 +19,7 @@ public class GetStarted {
 
     @Test
     public void executeOnAlbum() throws Exception {
-        Path path = Paths.get("/home/directory/");
+        Path path = Paths.get("/home/signed/entpacken/Brandon Sanderson/Elantris/");
 
         Mp3Album album = Mp3Album.For(path);
         //album.forEachMp3File(new FillUpLeadingZeros(3));
@@ -29,8 +29,8 @@ public class GetStarted {
         //album.forEachMp3File(new SetTrackNumber());
         //album.forEachMp3File(new SetAlbum("Incredible Album"));
         //album.forEachMp3File(new CheckForMissingArtist());
-        album.forEachMp3File(new DropTag(Tag.lookup("COMM")));
-        album.forEachMp3File(new DropTag(Tag.lookup("TCOP")));
+        //album.forEachMp3File(new DropTag(Tag.lookup("COMM")));
+        //album.forEachMp3File(new DropTag(Tag.lookup("TCOP")));
         album.forEachMp3File(new DumpAllTags());
     }
 
