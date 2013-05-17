@@ -21,4 +21,13 @@ public enum Tag {
     public String frameId() {
         return frameId;
     }
+
+    public static Tag lookup(String tagAsString) {
+        for (Tag tag : Tag.values()) {
+            if(tagAsString.equals(tag.frameId)) {
+                return tag;
+            }
+        }
+        throw new RuntimeException("there is no tag for " + tagAsString);
+    }
 }
