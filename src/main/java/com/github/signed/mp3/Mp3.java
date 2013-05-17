@@ -81,9 +81,14 @@ public class Mp3 {
         return (AbstractFrameBodyTextInfo) body1;
     }
 
-    public void provideTitleTo(ExceptionTranslatingCallback<String> callback) {
+
+
+
+    public void provideTitleTo(CallbackWithFallback<String> callback) {
         if(tags.hasFrameFor(FRAME_ID_TITLE)){
             callback.call(getTitleTag().getText());
+        }else{
+            callback.fallback();
         }
     }
 
