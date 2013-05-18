@@ -11,7 +11,10 @@ public enum Tag {
     Comment(ID3v24Frames.FRAME_ID_COMMENT),
     Private(ID3v24Frames.FRAME_ID_PRIVATE),
     MusicCdIdentifier(ID3v24Frames.FRAME_ID_MUSIC_CD_ID),
-    EncodedBy(ID3v24Frames.FRAME_ID_ENCODEDBY);
+    EncodedBy(ID3v24Frames.FRAME_ID_ENCODEDBY),
+    EncoderSettings(ID3v24Frames.FRAME_ID_HW_SW_SETTINGS),
+    Publisher(ID3v24Frames.FRAME_ID_PUBLISHER)
+    ;
 
     private final String frameId;
     Tag(String frameId) {
