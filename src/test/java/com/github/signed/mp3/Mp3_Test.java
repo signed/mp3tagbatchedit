@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static com.github.signed.mp3.Tag.Album;
+import static com.github.signed.mp3.Tag.Artist;
 import static com.github.signed.mp3.Tag.Title;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -56,6 +57,15 @@ public class Mp3_Test {
 
         sample.reloaded().pass(Album, callback);
         verify(callback).call("the album");
+    }
+
+    @Test
+    public void storeArtist() throws Exception {
+        mp3.setTextFor(Artist, "the artist");
+        mp3.saveChanges();
+
+        sample.reloaded().pass(Artist, callback);
+        verify(callback).call("the artist");
     }
 
     @Test
