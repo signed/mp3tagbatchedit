@@ -31,7 +31,7 @@ public class Mp3_Test {
         mp3.saveChanges();
 
         Mp3 reloaded = sample.reloaded();
-        reloaded.setTitleTo("the new one");
+        reloaded.setTextFor(Title, "the new one");
         reloaded.saveChanges();
 
         reloaded = sample.reloaded();
@@ -41,7 +41,7 @@ public class Mp3_Test {
 
     @Test
     public void storeNewTitle() throws Exception {
-        mp3.setTitleTo("the new one");
+        mp3.setTextFor(Title, "the new one");
         mp3.saveChanges();
 
         sample.reloaded().pass(Title, callback);

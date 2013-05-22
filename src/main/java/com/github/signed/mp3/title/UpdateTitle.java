@@ -35,7 +35,7 @@ public class UpdateTitle extends ExceptionTranslatingCallback<Mp3Album.Context> 
             }
 
             private void updateTrackTitle(String currentTitle) throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException {
-                track.setTitleTo(titleProvider.getTitle(currentTitle, context));
+                track.setTextFor(Title, titleProvider.getTitle(currentTitle, context));
             }
         });
         track.saveChanges();

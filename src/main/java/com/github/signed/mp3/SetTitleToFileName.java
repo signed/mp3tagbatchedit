@@ -7,7 +7,7 @@ class SetTitleToFileName extends ExceptionTranslatingCallback<Mp3Album.Context> 
     protected void callWithoutConstraint(Mp3Album.Context context) throws Exception {
         Mp3 mp3 = context.currentTrack;
         Path path = context.currentTracksPath;
-        mp3.setTitleTo(path.getFileName().toString());
+        mp3.setTextFor(Tag.Title, path.getFileName().toString());
         mp3.saveChanges();
     }
 }

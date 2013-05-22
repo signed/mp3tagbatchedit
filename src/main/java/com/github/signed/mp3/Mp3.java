@@ -42,8 +42,8 @@ public class Mp3 {
         }
     }
 
-    public void setTitleTo(final String newTitle) {
-        textBodyFor(Tag.Title, new Callback<AbstractFrameBodyTextInfo>() {
+    public void setTextFor(Tag tag, final String newTitle) {
+        textBodyFor(tag, new Callback<AbstractFrameBodyTextInfo>() {
             @Override
             public void call(AbstractFrameBodyTextInfo first) {
                 first.setText(newTitle);
