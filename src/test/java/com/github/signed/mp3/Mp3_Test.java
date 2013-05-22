@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.github.signed.mp3.Tag.Album;
 import static com.github.signed.mp3.Tag.Title;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -47,6 +48,16 @@ public class Mp3_Test {
         sample.reloaded().pass(Title, callback);
         verify(callback).call("the new one");
     }
+
+    @Test
+    public void storeAlbum() throws Exception {
+        mp3.setTextFor(Album, "the album");
+        mp3.saveChanges();
+
+        sample.reloaded().pass(Album, callback);
+        verify(callback).call("the album");
+    }
+
     @Test
     public void dropTag() throws Exception {
         mp3.drop(Title);

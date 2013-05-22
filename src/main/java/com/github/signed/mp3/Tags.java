@@ -54,13 +54,13 @@ public class Tags {
     public AbstractTagFrameBody createFrameFor( Tag tag) {
         String id3v24FrameKey = tag.frameId();
         try {
-            AbstractID3v2Frame titleFrame = tags.getFirstField(id3v24FrameKey);
-            if (null == titleFrame) {
+            AbstractID3v2Frame theFrame = tags.getFirstField(id3v24FrameKey);
+            if (null == theFrame) {
                 AbstractID3v2Frame frame = (AbstractID3v2Frame) tags.createField(tag.getFieldKey(), "0");
                 tags.setFrame(frame);
             }
-            titleFrame = tags.getFirstField(id3v24FrameKey);
-            return titleFrame.getBody();
+            theFrame = tags.getFirstField(id3v24FrameKey);
+            return theFrame.getBody();
         } catch (KeyNotFoundException | FieldDataInvalidException e) {
             throw new RuntimeException(e);
         }

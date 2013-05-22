@@ -53,7 +53,7 @@ public class Mp3 {
 
     public void pass(Tag tag, final CallbackWithFallback<String> callback) {
         if(tags.hasFrameFor(tag)){
-            textBodyFor(Tag.Title, new Callback<AbstractFrameBodyTextInfo>() {
+            textBodyFor(tag, new Callback<AbstractFrameBodyTextInfo>() {
 
                 @Override
                 public void call(AbstractFrameBodyTextInfo first) {
