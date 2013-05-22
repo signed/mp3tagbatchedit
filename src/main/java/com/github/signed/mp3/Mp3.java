@@ -1,6 +1,5 @@
 package com.github.signed.mp3;
 
-import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.audio.mp3.MP3File;
@@ -19,10 +18,6 @@ import static org.jaudiotagger.tag.id3.ID3v24Frames.FRAME_ID_ACCOMPANIMENT;
 import static org.jaudiotagger.tag.id3.ID3v24Frames.FRAME_ID_ARTIST;
 
 public class Mp3 {
-
-    public static Mp3 From(Mp3 mp3){
-        return From(mp3.mp3File.getFile().toPath());
-    }
 
     public static Mp3 From(Path path) {
         try {
@@ -63,22 +58,32 @@ public class Mp3 {
         }
     }
 
-    public void setTitleTo(String newTitle) throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException {
-        AbstractFrameBodyTextInfo body = getTitleTag();
-        body.setText(newTitle);
+    public void setTitleTo(final String newTitle) {
+        textBodyFor(Tag.Title, new Callback<AbstractFrameBodyTextInfo>() {
+            @Override
+            public void call(AbstractFrameBodyTextInfo first) {
+                first.setText(newTitle);
+            }
+        });
     }
 
-    public void pass(Tag tag, CallbackWithFallback<String> callback) {
+    public void pass(Tag tag, final CallbackWithFallback<String> callback) {
         if(tags.hasFrameFor(tag)){
-            callback.call(getTitleTag().getText());
+            textBodyFor(Tag.Title, new Callback<AbstractFrameBodyTextInfo>() {
+
+                @Override
+                public void call(AbstractFrameBodyTextInfo first) {
+                    callback.call(first.getText());
+                }
+            });
         }else{
             callback.fallback();
         }
     }
 
-    private AbstractFrameBodyTextInfo getTitleTag() {
-        AbstractTagFrameBody body1 = tags.createFrameFor(Tag.Title);
-        return (AbstractFrameBodyTextInfo) body1;
+    private void textBodyFor(Tag tag, Callback<AbstractFrameBodyTextInfo> callback) {
+        AbstractTagFrameBody body1 = tags.createFrameFor(tag);
+        callback.call((AbstractFrameBodyTextInfo) body1);
     }
 
     public void setTrackNumberTo(Integer current, Integer total) throws FieldDataInvalidException {
