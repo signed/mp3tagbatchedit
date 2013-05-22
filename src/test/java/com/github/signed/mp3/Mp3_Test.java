@@ -16,29 +16,29 @@ public class Mp3_Test {
     public final Mp3Builder sample = new Mp3Builder();
     @SuppressWarnings("unchecked")
     private final ExceptionTranslatingCallback<String> callback = mock(ExceptionTranslatingCallback.class);
+    private Mp3 mp3;
 
     @Before
     public void setUp() throws Exception {
         Logger.getLogger("org.jaudiotagger").setLevel(Level.OFF);
+        mp3 = this.sample.build();
     }
 
     @Test
     public void storeNewTitle() throws Exception {
-        Mp3 mp3 = this.sample.build();
         mp3.setTitleTo("the new one");
         mp3.saveChanges();
 
-        sample.reloaded(mp3).provideTitleTo(callback);
+        sample.reloaded().provideTitleTo(callback);
         verify(callback).call("the new one");
     }
 
     @Test
     public void dropTag() throws Exception {
-        Mp3 mp3 = this.sample.build();
         mp3.drop(Tag.Title);
         mp3.saveChanges();
 
-        sample.reloaded(mp3).provideTitleTo(callback);
+        sample.reloaded().provideTitleTo(callback);
         verify(callback).fallback();
     }
 }

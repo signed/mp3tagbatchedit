@@ -24,7 +24,7 @@ public class Mp3Builder extends ExternalResource {
         folder.delete();
     }
 
-    public Mp3 reloaded(Mp3 mp3) {
+    public Mp3 reloaded() {
         return Mp3.From(mp3File.toPath());
     }
 
