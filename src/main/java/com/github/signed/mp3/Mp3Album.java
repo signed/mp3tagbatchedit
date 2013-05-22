@@ -31,7 +31,7 @@ public class Mp3Album {
         Collections.sort(allPath, new Comparator<Path>() {
             @Override
             public int compare(Path o1, Path o2) {
-                return o1.getFileName().compareTo(o2.getFileName());
+                return o1.toAbsolutePath().toString().compareTo(o2.toAbsolutePath().toString());
             }
         });
 
