@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
-public class Mp3Rule extends ExternalResource {
+public class Mp3Builder extends ExternalResource {
     private final TemporaryFolder folder = new TemporaryFolder();
 
     @Override

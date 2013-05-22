@@ -13,7 +13,7 @@ import static org.mockito.Mockito.verify;
 public class Mp3_Test {
 
     @Rule
-    public final Mp3Rule samples = new Mp3Rule();
+    public final Mp3Builder samples = new Mp3Builder();
     @SuppressWarnings("unchecked")
     private final ExceptionTranslatingCallback<String> callback = mock(ExceptionTranslatingCallback.class);
 
