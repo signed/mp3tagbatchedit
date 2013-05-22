@@ -42,14 +42,6 @@ public class Mp3 {
         }
     }
 
-    private void dumpNotExistingTag(String tagId){
-        boolean has = tags.hasFrameFor(tagId);
-        if(!has){
-            System.out.println(mp3File.getFile().getAbsolutePath());
-            System.out.println(tagId + ": n.a.");
-        }
-    }
-
     public void setTitleTo(final String newTitle) {
         textBodyFor(Tag.Title, new Callback<AbstractFrameBodyTextInfo>() {
             @Override
