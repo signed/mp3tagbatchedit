@@ -9,12 +9,13 @@ import java.util.logging.Logger;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
 
 public class Mp3_Test {
 
     @Rule
-    public Mp3Rule samples = new Mp3Rule();
+    public final Mp3Rule samples = new Mp3Rule();
+    @SuppressWarnings("unchecked")
+    private final ExceptionTranslatingCallback<String> callback = mock(ExceptionTranslatingCallback.class);
 
     @Before
     public void setUp() throws Exception {
@@ -28,8 +29,6 @@ public class Mp3_Test {
         mp3.saveChanges();
 
         Mp3 reloaded = Mp3.From(mp3);
-
-        ExceptionTranslatingCallback<String> callback = mock(ExceptionTranslatingCallback.class);
         reloaded.provideTitleTo(callback);
 
         verify(callback).call("the new one");
@@ -43,9 +42,7 @@ public class Mp3_Test {
 
         Mp3 reloaded = Mp3.From(mp3);
 
-        ExceptionTranslatingCallback<String> callback = mock(ExceptionTranslatingCallback.class);
         reloaded.provideTitleTo(callback);
-        verifyZeroInteractions(callback);
+        verify(callback).fallback();
     }
-
 }
