@@ -11,12 +11,15 @@ public enum Tag {
     Comment(ID3v24FieldKey.COMMENT),
     EncodedBy(ID3v24FieldKey.ENCODER),
     Publisher(ID3v24FieldKey.RECORD_LABEL),
+    Genre(ID3v24FieldKey.GENRE),
 
     Copyright(ID3v24Frames.FRAME_ID_COPYRIGHTINFO),
     UserDefinedInformation(ID3v24Frames.FRAME_ID_USER_DEFINED_INFO),
     Private(ID3v24Frames.FRAME_ID_PRIVATE),
     MusicCdIdentifier(ID3v24Frames.FRAME_ID_MUSIC_CD_ID),
-    EncoderSettings(ID3v24Frames.FRAME_ID_HW_SW_SETTINGS)
+    EncoderSettings(ID3v24Frames.FRAME_ID_HW_SW_SETTINGS),
+    MusicCdiIdentifier(ID3v24Frames.FRAME_ID_MUSIC_CD_ID),
+    LengthInMilliseconds(ID3v24Frames.FRAME_ID_LENGTH)
     ;
 
     private final String frameId;

@@ -5,7 +5,7 @@ public class SetTextTo extends ExceptionTranslatingCallback<Mp3Album.Context> {
     private final Tag tag;
     private final String title;
 
-    public SetTextTo(String title, Tag tag) {
+    public SetTextTo(Tag tag, String title) {
         this.title = title;
         this.tag = tag;
     }
