@@ -2,12 +2,10 @@ package com.github.signed.mp3;
 
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.FieldDataInvalidException;
-import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.KeyNotFoundException;
 import org.jaudiotagger.tag.TagField;
 import org.jaudiotagger.tag.id3.AbstractID3v2Frame;
 import org.jaudiotagger.tag.id3.AbstractTagFrameBody;
-import org.jaudiotagger.tag.id3.ID3v24FieldKey;
 import org.jaudiotagger.tag.id3.ID3v24Tag;
 import org.jaudiotagger.tag.id3.framebody.AbstractFrameBodyTextInfo;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyAPIC;
@@ -53,11 +51,12 @@ public class Tags {
         tags.deleteField(tag.frameId());
     }
 
-    public AbstractTagFrameBody createFrameFor(String id3v24FrameKey, FieldKey genericFieldKey) {
+    public AbstractTagFrameBody createFrameFor( Tag tag) {
+        String id3v24FrameKey = tag.frameId();
         try {
             AbstractID3v2Frame titleFrame = tags.getFirstField(id3v24FrameKey);
             if (null == titleFrame) {
-                AbstractID3v2Frame frame = (AbstractID3v2Frame) tags.createField(genericFieldKey, "0");
+                AbstractID3v2Frame frame = (AbstractID3v2Frame) tags.createField(tag.getFieldKey(), "0");
                 tags.setFrame(frame);
             }
             titleFrame = tags.getFirstField(id3v24FrameKey);

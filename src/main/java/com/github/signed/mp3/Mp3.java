@@ -5,10 +5,8 @@ import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.FieldDataInvalidException;
-import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.id3.AbstractTagFrameBody;
-import org.jaudiotagger.tag.id3.ID3v24Frames;
 import org.jaudiotagger.tag.id3.framebody.AbstractFrameBodyTextInfo;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTALB;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTRCK;
@@ -17,11 +15,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import static org.jaudiotagger.tag.FieldKey.TITLE;
 import static org.jaudiotagger.tag.id3.ID3v24Frames.FRAME_ID_ACCOMPANIMENT;
-import static org.jaudiotagger.tag.id3.ID3v24Frames.FRAME_ID_ALBUM;
 import static org.jaudiotagger.tag.id3.ID3v24Frames.FRAME_ID_ARTIST;
-import static org.jaudiotagger.tag.id3.ID3v24Frames.FRAME_ID_TITLE;
 
 public class Mp3 {
 
@@ -82,7 +77,7 @@ public class Mp3 {
     }
 
     private AbstractFrameBodyTextInfo getTitleTag() {
-        AbstractTagFrameBody body1 = tags.createFrameFor(FRAME_ID_TITLE, TITLE);
+        AbstractTagFrameBody body1 = tags.createFrameFor(Tag.Title);
         return (AbstractFrameBodyTextInfo) body1;
     }
 
@@ -96,7 +91,7 @@ public class Mp3 {
     }
 
     private FrameBodyTRCK getTrackTag() {
-        AbstractTagFrameBody box = tags.createFrameFor(ID3v24Frames.FRAME_ID_TRACK, FieldKey.TRACK);
+        AbstractTagFrameBody box = tags.createFrameFor(Tag.Track);
         return (FrameBodyTRCK) box;
     }
 
@@ -110,7 +105,7 @@ public class Mp3 {
     }
 
     private FrameBodyTALB getAlbumFrame() {
-        AbstractTagFrameBody body = tags.createFrameFor(FRAME_ID_ALBUM, FieldKey.ALBUM);
+        AbstractTagFrameBody body = tags.createFrameFor(Tag.Album);
         return (FrameBodyTALB) body;
     }
 

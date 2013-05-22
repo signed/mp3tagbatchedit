@@ -5,6 +5,7 @@ import org.jaudiotagger.tag.id3.ID3v24Frames;
 
 public enum Tag {
     Title(ID3v24FieldKey.TITLE),
+    Album(ID3v24FieldKey.ALBUM),
     Copyright(ID3v24Frames.FRAME_ID_COPYRIGHTINFO),
     UserDefinedInformation(ID3v24Frames.FRAME_ID_USER_DEFINED_INFO),
     Comment(ID3v24FieldKey.COMMENT),
@@ -12,17 +13,20 @@ public enum Tag {
     MusicCdIdentifier(ID3v24Frames.FRAME_ID_MUSIC_CD_ID),
     EncodedBy(ID3v24FieldKey.ENCODER),
     EncoderSettings(ID3v24Frames.FRAME_ID_HW_SW_SETTINGS),
-    Publisher(ID3v24FieldKey.RECORD_LABEL)
+    Publisher(ID3v24FieldKey.RECORD_LABEL),
+    Track(ID3v24FieldKey.TRACK)
     ;
 
     private final String frameId;
     private ID3v24FieldKey key = null;
+
     Tag(String frameId) {
         this.frameId = frameId;
     }
 
-    Tag(ID3v24FieldKey title) {
-        this(title.getFrameId());
+    Tag(ID3v24FieldKey key) {
+        this(key.getFrameId());
+        this.key = key;
     }
 
     public String frameId() {

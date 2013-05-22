@@ -26,6 +26,20 @@ public class Mp3_Test {
     }
 
     @Test
+    public void setTitleIfNoneExists() throws Exception {
+        mp3.drop(Title);
+        mp3.saveChanges();
+
+        Mp3 reloaded = sample.reloaded();
+        reloaded.setTitleTo("the new one");
+        reloaded.saveChanges();
+
+        reloaded = sample.reloaded();
+        reloaded.pass(Title, callback);
+        verify(callback).call("the new one");
+    }
+
+    @Test
     public void storeNewTitle() throws Exception {
         mp3.setTitleTo("the new one");
         mp3.saveChanges();
@@ -33,7 +47,6 @@ public class Mp3_Test {
         sample.reloaded().pass(Title, callback);
         verify(callback).call("the new one");
     }
-
     @Test
     public void dropTag() throws Exception {
         mp3.drop(Title);
