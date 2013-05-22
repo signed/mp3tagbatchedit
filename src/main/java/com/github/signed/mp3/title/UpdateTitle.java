@@ -10,6 +10,8 @@ import org.jaudiotagger.tag.TagException;
 
 import java.io.IOException;
 
+import static com.github.signed.mp3.Tag.Title;
+
 public class UpdateTitle extends ExceptionTranslatingCallback<Mp3Album.Context> {
     private final TitleProvider titleProvider;
 
@@ -20,7 +22,7 @@ public class UpdateTitle extends ExceptionTranslatingCallback<Mp3Album.Context> 
     @Override
     protected void callWithoutConstraint(final Mp3Album.Context context) throws Exception {
         final Mp3 track = context.currentTrack;
-        track.provideTitleTo(new ExceptionTranslatingCallback<String>(){
+        track.pass(Title, new ExceptionTranslatingCallback<String>() {
 
             @Override
             protected void callWithoutConstraint(String title) throws Exception {
