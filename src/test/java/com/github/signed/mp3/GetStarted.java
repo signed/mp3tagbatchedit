@@ -49,7 +49,7 @@ public class GetStarted {
 
     @Test
     public void forASingleFile() throws Exception {
-        Path singleMp3 = Paths.get("some.samples");
+        Path singleMp3 = Paths.get("some.amples");
         Mp3Album.Context context = new Mp3Album.Context(1, 1, singleMp3, Mp3.From(singleMp3));
         new DumpAllTags().call(context);
     }

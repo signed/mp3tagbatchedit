@@ -13,7 +13,7 @@ import static org.mockito.Mockito.verify;
 public class Mp3_Test {
 
     @Rule
-    public final Mp3Builder samples = new Mp3Builder();
+    public final Mp3Builder sample = new Mp3Builder();
     @SuppressWarnings("unchecked")
     private final ExceptionTranslatingCallback<String> callback = mock(ExceptionTranslatingCallback.class);
 
@@ -24,25 +24,21 @@ public class Mp3_Test {
 
     @Test
     public void storeNewTitle() throws Exception {
-        Mp3 mp3 = this.samples.whiteNoise();
+        Mp3 mp3 = this.sample.build();
         mp3.setTitleTo("the new one");
         mp3.saveChanges();
 
-        Mp3 reloaded = Mp3.From(mp3);
-        reloaded.provideTitleTo(callback);
-
+        sample.reloaded(mp3).provideTitleTo(callback);
         verify(callback).call("the new one");
     }
 
     @Test
     public void dropTag() throws Exception {
-        Mp3 mp3 = this.samples.whiteNoise();
+        Mp3 mp3 = this.sample.build();
         mp3.drop(Tag.Title);
         mp3.saveChanges();
 
-        Mp3 reloaded = Mp3.From(mp3);
-
-        reloaded.provideTitleTo(callback);
+        sample.reloaded(mp3).provideTitleTo(callback);
         verify(callback).fallback();
     }
 }
