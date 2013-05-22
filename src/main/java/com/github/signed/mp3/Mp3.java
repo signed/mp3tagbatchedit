@@ -70,23 +70,20 @@ public class Mp3 {
 
     public void setTitleTo(String newTitle) throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException {
         AbstractFrameBodyTextInfo body = getTitleTag();
-        String oldTitle = body.getText();
-        System.out.println("old title: " + oldTitle);
-        System.out.println("new title: " + newTitle);
         body.setText(newTitle);
+    }
+
+    public void pass(Tag tag, CallbackWithFallback<String> callback) {
+        if(tags.hasFrameFor(tag)){
+            callback.call(getTitleTag().getText());
+        }else{
+            callback.fallback();
+        }
     }
 
     private AbstractFrameBodyTextInfo getTitleTag() {
         AbstractTagFrameBody body1 = tags.createFrameFor(FRAME_ID_TITLE, TITLE);
         return (AbstractFrameBodyTextInfo) body1;
-    }
-
-    public void pass(Tag title, CallbackWithFallback<String> callback) {
-        if(tags.hasFrameFor(title.frameId())){
-            callback.call(getTitleTag().getText());
-        }else{
-            callback.fallback();
-        }
     }
 
     public void setTrackNumberTo(Integer current, Integer total) throws FieldDataInvalidException {

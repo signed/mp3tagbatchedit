@@ -7,6 +7,7 @@ import org.jaudiotagger.tag.KeyNotFoundException;
 import org.jaudiotagger.tag.TagField;
 import org.jaudiotagger.tag.id3.AbstractID3v2Frame;
 import org.jaudiotagger.tag.id3.AbstractTagFrameBody;
+import org.jaudiotagger.tag.id3.ID3v24FieldKey;
 import org.jaudiotagger.tag.id3.ID3v24Tag;
 import org.jaudiotagger.tag.id3.framebody.AbstractFrameBodyTextInfo;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyAPIC;
@@ -38,6 +39,10 @@ public class Tags {
 
     public Tags(ID3v24Tag tags) {
         this.tags = tags;
+    }
+
+    public boolean hasFrameFor(Tag tag) {
+        return hasFrameFor(tag.frameId());
     }
 
     public boolean hasFrameFor(String id3v24FrameKey) {
