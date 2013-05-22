@@ -14,9 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import static org.jaudiotagger.tag.id3.ID3v24Frames.FRAME_ID_ACCOMPANIMENT;
-import static org.jaudiotagger.tag.id3.ID3v24Frames.FRAME_ID_ARTIST;
-
 public class Mp3 {
 
     public static Mp3 From(Path path) {
@@ -43,11 +40,6 @@ public class Mp3 {
         } catch (IOException | TagException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void isAuthorSet(){
-        dumpNotExistingTag(FRAME_ID_ARTIST);
-        dumpNotExistingTag(FRAME_ID_ACCOMPANIMENT);
     }
 
     private void dumpNotExistingTag(String tagId){
