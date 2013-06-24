@@ -17,33 +17,51 @@ public class Mp3Album {
         return new Mp3Album(path);
     }
 
-    private Path path;
+    private final List<Mp3> tracks = new ArrayList<>();
+    private final Path path;
 
     public Mp3Album(Path path) {
         this.path = path;
     }
 
     public void forEachMp3File(Callback<Context> callback) {
-        System.out.println("process album at '" + path + "'");
+        readTracks();
+        forEachTrack(callback);
+    }
 
-        final List<Path> allPath = getMp3s();
+    private void readTracks() {
+        final List<Path> allPath = readTracksInternal();
+        sortTracks(allPath);
 
+        for (Path path1 : allPath) {
+            tracks.add(Mp3.From(path1));
+        }
+    }
+
+    private void forEachTrack(Callback<Context> callback) {
+        final int totalNumberOfTracks = tracks.size();
+        int currentTrackNumber = 1;
+
+
+        for (Mp3 mp3 : tracks) {
+            Context context = new Context(totalNumberOfTracks, currentTrackNumber, path, mp3);
+            callback.call(context);
+            ++currentTrackNumber;
+        }
+    }
+
+    private void sortTracks(List<Path> allPath) {
         Collections.sort(allPath, new Comparator<Path>() {
             @Override
             public int compare(Path o1, Path o2) {
                 return o1.toAbsolutePath().toString().compareTo(o2.toAbsolutePath().toString());
             }
         });
+    }
 
-        final int totalNumberOfTracks = allPath.size();
-        int currentTrackNumber = 1;
-
-        for (Path path : allPath) {
-            Mp3 currentMp3 = Mp3.From(path);
-            Context context = new Context(totalNumberOfTracks, currentTrackNumber, path, currentMp3);
-            callback.call(context);
-            ++currentTrackNumber;
-        }
+    private List<Path> readTracksInternal() {
+        System.out.println("process album at '" + path + "'");
+        return getMp3s();
     }
 
     private List<Path> getMp3s() {
