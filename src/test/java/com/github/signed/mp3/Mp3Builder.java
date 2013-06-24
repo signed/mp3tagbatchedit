@@ -8,6 +8,7 @@ import org.junit.rules.TemporaryFolder;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.nio.file.Path;
 
 public class Mp3Builder extends ExternalResource {
     private final TemporaryFolder folder = new TemporaryFolder();
@@ -16,7 +17,7 @@ public class Mp3Builder extends ExternalResource {
     @Override
     protected void before() throws Throwable {
         folder.create();
-        mp3File = folder.newFile();
+        mp3File = folder.newFile("some.mp3");
     }
 
     @Override
@@ -26,6 +27,10 @@ public class Mp3Builder extends ExternalResource {
 
     public Mp3 reloaded() {
         return Mp3.From(mp3File.toPath());
+    }
+
+    public Path root() {
+        return folder.getRoot().toPath();
     }
 
     public Mp3 build() throws Exception{

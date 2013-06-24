@@ -28,7 +28,7 @@ public class GetStarted {
         //album.forEachMp3File(new UpdateTitle(new StripLeadingDigits()));
         //album.forEachMp3File(new UpdateTitle(new PrependTrackNumberToTitle()));
         //album.forEachMp3File(new UpdateTitle(new RegexFromFileName()));
-        //album.forEachMp3File(new SetTrackNumber());
+        album.forEachMp3File(new SetTrackNumber());
         //album.forEachMp3File(new SetAlbum("Incredible Album"));
         //album.forEachMp3File(new CheckForMissingArtist());
         //album.forEachMp3File(new DropTag(Tag.lookup("COMM")));
