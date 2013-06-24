@@ -7,7 +7,6 @@ import org.jaudiotagger.tag.FieldDataInvalidException;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.id3.AbstractTagFrameBody;
 import org.jaudiotagger.tag.id3.framebody.AbstractFrameBodyTextInfo;
-import org.jaudiotagger.tag.id3.framebody.FrameBodyTALB;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTRCK;
 
 import java.io.File;
@@ -86,16 +85,6 @@ public class Mp3 {
 
     public void dumpAllTags() {
         tags.dumpTagsTo(System.out);
-    }
-
-    public void setAlbumName(String albumName) {
-        FrameBodyTALB frameBodyTALB = getAlbumFrame();
-        frameBodyTALB.setText(albumName);
-    }
-
-    private FrameBodyTALB getAlbumFrame() {
-        AbstractTagFrameBody body = tags.createFrameFor(Tag.Album);
-        return (FrameBodyTALB) body;
     }
 
     public void drop(Tag tag){
