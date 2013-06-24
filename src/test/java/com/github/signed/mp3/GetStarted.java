@@ -37,7 +37,9 @@ public class GetStarted {
         //album.forEachMp3File(new DropTag(Tag.lookup("COMM")));
         //album.forEachMp3File(new DropTag(Tag.lookup("TCOP")));
         album.storeTracks();
-        album.forEachTrack(new DumpAllTags());
+
+        Mp3Album reloaded = Mp3Album.For(path);
+        reloaded.forEachTrack(new DumpAllTags());
     }
 
 
