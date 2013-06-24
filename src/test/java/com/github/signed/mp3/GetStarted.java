@@ -1,6 +1,7 @@
 package com.github.signed.mp3;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.nio.file.Path;
@@ -18,6 +19,7 @@ public class GetStarted {
     }
 
     @Test
+    @Ignore
     public void executeOnAlbum() throws Exception {
         Path path = Paths.get("/home/directory");
 
@@ -28,7 +30,7 @@ public class GetStarted {
         //album.forEachMp3File(new UpdateTitle(new StripLeadingDigits()));
         //album.forEachMp3File(new UpdateTitle(new PrependTrackNumberToTitle()));
         //album.forEachMp3File(new UpdateTitle(new RegexFromFileName()));
-        album.forEachMp3File(new SetTrackNumber());
+        //album.forEachMp3File(new SetTrackNumber());
         //album.forEachMp3File(new SetAlbum("Incredible Album"));
         //album.forEachMp3File(new CheckForMissingArtist());
         //album.forEachMp3File(new DropTag(Tag.lookup("COMM")));
@@ -48,6 +50,7 @@ public class GetStarted {
     }
 
     @Test
+    @Ignore
     public void forASingleFile() throws Exception {
         Path singleMp3 = Paths.get("some.amples");
         Mp3Album.Context context = new Mp3Album.Context(1, 1, singleMp3, Mp3.From(singleMp3));
