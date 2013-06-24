@@ -24,12 +24,7 @@ public class Mp3Album {
         this.path = path;
     }
 
-    public void forEachMp3File(Callback<Context> callback) {
-        readTracks();
-        forEachTrack(callback);
-    }
-
-    private void readTracks() {
+    public void readTracks() {
         final List<Path> allPath = readTracksInternal();
         sortTracks(allPath);
 
@@ -38,7 +33,7 @@ public class Mp3Album {
         }
     }
 
-    private void forEachTrack(Callback<Context> callback) {
+    public void forEachTrack(Callback<Context> callback) {
         final int totalNumberOfTracks = tracks.size();
         int currentTrackNumber = 1;
 
@@ -61,10 +56,6 @@ public class Mp3Album {
 
     private List<Path> readTracksInternal() {
         System.out.println("process album at '" + path + "'");
-        return getMp3s();
-    }
-
-    private List<Path> getMp3s() {
         final List<Path> allPath = new ArrayList<>();
         try {
             Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
@@ -80,6 +71,12 @@ public class Mp3Album {
             throw new RuntimeException(e);
         }
         return allPath;
+    }
+
+    public void storeTracks() {
+        for (Mp3 track : tracks) {
+            track.saveChanges();
+        }
     }
 
     public static class Context {

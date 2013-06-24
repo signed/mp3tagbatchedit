@@ -38,6 +38,5 @@ public class UpdateTitle extends ExceptionTranslatingCallback<Mp3Album.Context> 
                 track.setTextFor(Title, titleProvider.getTitle(currentTitle, context));
             }
         });
-        track.saveChanges();
     }
 }

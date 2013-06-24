@@ -11,6 +11,5 @@ public class DropTag implements Callback<Mp3Album.Context> {
     public void call(Mp3Album.Context first) {
         Mp3 track = first.currentTrack;
         track.drop(tag);
-        track.saveChanges();
     }
 }

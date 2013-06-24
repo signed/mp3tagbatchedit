@@ -24,6 +24,7 @@ public class GetStarted {
         Path path = Paths.get("/home/directory");
 
         Mp3Album album = Mp3Album.For(path);
+        album.readTracks();
         //album.forEachMp3File(new FillUpLeadingZeros(3));
         //album.forEachMp3File(new SetTitleToFileName());
         //album.forEachMp3File(new UpdateTitle(new RegexFromFileName()));
@@ -35,7 +36,8 @@ public class GetStarted {
         //album.forEachMp3File(new CheckForMissingArtist());
         //album.forEachMp3File(new DropTag(Tag.lookup("COMM")));
         //album.forEachMp3File(new DropTag(Tag.lookup("TCOP")));
-        album.forEachMp3File(new DumpAllTags());
+        album.storeTracks();
+        album.forEachTrack(new DumpAllTags());
     }
 
 

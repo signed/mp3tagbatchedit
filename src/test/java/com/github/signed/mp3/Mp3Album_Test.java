@@ -27,8 +27,10 @@ public class Mp3Album_Test {
     public void allowMultipleTagsToBeChanged() throws Exception {
         sample.build();
         Mp3Album album = Mp3Album.For(sample.root());
-        album.forEachMp3File(new SetTextTo(Tag.Artist, "The artist"));
-        album.forEachMp3File(new SetTextTo(Tag.Album, "New album"));
+        album.readTracks();
+        album.forEachTrack(new SetTextTo(Tag.Artist, "The artist"));
+        album.forEachTrack(new SetTextTo(Tag.Album, "New album"));
+        album.storeTracks();
 
 
         sample.reloaded().pass(Tag.Artist, callback);

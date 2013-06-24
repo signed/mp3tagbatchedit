@@ -14,6 +14,5 @@ public class SetTextTo extends ExceptionTranslatingCallback<Mp3Album.Context> {
     protected void callWithoutConstraint(Mp3Album.Context context) throws Exception {
         Mp3 mp3 = context.currentTrack;
         mp3.setTextFor(tag, title);
-        mp3.saveChanges();
     }
 }
