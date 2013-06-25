@@ -71,11 +71,8 @@ public class Mp3 {
 
     public void setTrackNumberTo(Integer current, Integer total) throws FieldDataInvalidException {
         FrameBodyTRCK body = getTrackTag();
-        System.out.println("before: " + body.getUserFriendlyValue());
         body.setTrackNo(current);
         body.setTrackTotal(total);
-        System.out.println("after: " + body.getUserFriendlyValue());
-        System.out.println("track number set to: " + body.getUserFriendlyValue());
     }
 
     private FrameBodyTRCK getTrackTag() {
