@@ -2,7 +2,7 @@ package com.github.signed.mp3;
 
 public class DropTag implements Callback<Mp3Album.Context> {
 
-    public Callback<Mp3Album.Context> drop(Tag tag) {
+    public static Callback<Mp3Album.Context> drop(Tag tag) {
         return new DropTag(tag);
     }
 
