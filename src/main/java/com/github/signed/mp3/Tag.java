@@ -12,6 +12,9 @@ public enum Tag {
     EncodedBy(ID3v24FieldKey.ENCODER),
     Publisher(ID3v24FieldKey.RECORD_LABEL),
     Genre(ID3v24FieldKey.GENRE),
+    OriginalArtist(ID3v24FieldKey.ORIGINAL_ARTIST),
+    Year(ID3v24FieldKey.YEAR),
+
 
     Copyright(ID3v24Frames.FRAME_ID_COPYRIGHTINFO),
     UserDefinedInformation(ID3v24Frames.FRAME_ID_USER_DEFINED_INFO),
