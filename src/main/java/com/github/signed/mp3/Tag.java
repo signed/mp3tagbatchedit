@@ -15,7 +15,6 @@ public enum Tag {
     OriginalArtist(ID3v24FieldKey.ORIGINAL_ARTIST),
     Year(ID3v24FieldKey.YEAR),
 
-
     Copyright(ID3v24Frames.FRAME_ID_COPYRIGHTINFO),
     UserDefinedInformation(ID3v24Frames.FRAME_ID_USER_DEFINED_INFO),
     Private(ID3v24Frames.FRAME_ID_PRIVATE),
@@ -23,6 +22,7 @@ public enum Tag {
     EncoderSettings(ID3v24Frames.FRAME_ID_HW_SW_SETTINGS),
     MusicCdiIdentifier(ID3v24Frames.FRAME_ID_MUSIC_CD_ID),
     LengthInMilliseconds(ID3v24Frames.FRAME_ID_LENGTH),
+    APIC(ID3v24Frames.FRAME_ID_ATTACHED_PICTURE),
     TXXX("TXXX")
     ;
 
@@ -35,7 +35,7 @@ public enum Tag {
 
     Tag(ID3v24FieldKey key) {
         this(key.getFrameId());
-        this.key = key;
+        this.key = key;Tag
     }
 
     public String frameId() {
