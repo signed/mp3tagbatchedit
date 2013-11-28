@@ -35,7 +35,7 @@ public enum Tag {
 
     Tag(ID3v24FieldKey key) {
         this(key.getFrameId());
-        this.key = key;Tag
+        this.key = key;
     }
 
     public String frameId() {
