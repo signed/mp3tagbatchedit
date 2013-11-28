@@ -22,7 +22,8 @@ public enum Tag {
     MusicCdIdentifier(ID3v24Frames.FRAME_ID_MUSIC_CD_ID),
     EncoderSettings(ID3v24Frames.FRAME_ID_HW_SW_SETTINGS),
     MusicCdiIdentifier(ID3v24Frames.FRAME_ID_MUSIC_CD_ID),
-    LengthInMilliseconds(ID3v24Frames.FRAME_ID_LENGTH)
+    LengthInMilliseconds(ID3v24Frames.FRAME_ID_LENGTH),
+    TXXX("TXXX")
     ;
 
     private final String frameId;
