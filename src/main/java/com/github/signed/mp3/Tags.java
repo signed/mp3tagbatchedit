@@ -1,5 +1,8 @@
 package com.github.signed.mp3;
 
+import java.io.PrintStream;
+import java.util.Iterator;
+
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.KeyNotFoundException;
 import org.jaudiotagger.tag.TagField;
@@ -13,9 +16,6 @@ import org.jaudiotagger.tag.id3.framebody.FrameBodyMCDI;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyPRIV;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTALB;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTRCK;
-
-import java.io.PrintStream;
-import java.util.Iterator;
 
 public class Tags {
 

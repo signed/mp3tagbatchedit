@@ -1,9 +1,9 @@
 package com.github.signed.mp3.title;
 
+import static java.lang.String.format;
+
 import com.github.signed.mp3.Mp3Album;
 import com.github.signed.mp3.NumberOfDigitsRequired;
-
-import static java.lang.String.format;
 
 public class PrependTrackNumberToTitle implements TitleProvider {
     public String getTitle(String title, Mp3Album.Context context) {

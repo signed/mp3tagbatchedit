@@ -1,9 +1,9 @@
 package com.github.signed.mp3.title;
 
-import com.github.signed.mp3.Mp3Album;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.github.signed.mp3.Mp3Album;
 
 public class StripLeadingDigits implements TitleProvider {
 

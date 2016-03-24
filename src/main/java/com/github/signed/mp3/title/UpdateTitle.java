@@ -1,16 +1,17 @@
 package com.github.signed.mp3.title;
 
-import com.github.signed.mp3.ExceptionTranslatingCallback;
-import com.github.signed.mp3.Mp3;
-import com.github.signed.mp3.Mp3Album;
+import static com.github.signed.mp3.Tag.Title;
+
+import java.io.IOException;
+
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.TagException;
 
-import java.io.IOException;
-
-import static com.github.signed.mp3.Tag.Title;
+import com.github.signed.mp3.ExceptionTranslatingCallback;
+import com.github.signed.mp3.Mp3;
+import com.github.signed.mp3.Mp3Album;
 
 public class UpdateTitle extends ExceptionTranslatingCallback<Mp3Album.Context> {
     private final TitleProvider titleProvider;
