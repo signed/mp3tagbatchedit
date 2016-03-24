@@ -1,5 +1,9 @@
 package com.github.signed.mp3;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.audio.mp3.MP3File;
@@ -8,10 +12,6 @@ import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.id3.AbstractTagFrameBody;
 import org.jaudiotagger.tag.id3.framebody.AbstractFrameBodyTextInfo;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTRCK;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
 
 public class Mp3 {
 
@@ -25,7 +25,7 @@ public class Mp3 {
         }
     }
 
-    private MP3File mp3File;
+    private final MP3File mp3File ;
     private final Tags tags;
 
     public Mp3(MP3File mp3File) {
@@ -62,6 +62,10 @@ public class Mp3 {
         }else{
             callback.fallback();
         }
+    }
+
+    public Path file(){
+        return mp3File.getFile().toPath();
     }
 
     private void textBodyFor(Tag tag, Callback<AbstractFrameBodyTextInfo> callback) {

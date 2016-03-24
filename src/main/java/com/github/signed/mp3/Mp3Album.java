@@ -28,8 +28,8 @@ public class Mp3Album {
         final List<Path> allPath = readTracksInternal();
         sortTracks(allPath);
 
-        for (Path path1 : allPath) {
-            tracks.add(Mp3.From(path1));
+        for (Path path : allPath) {
+            tracks.add(Mp3.From(path));
         }
     }
 
@@ -90,6 +90,10 @@ public class Mp3Album {
             this.trackNumber = trackNumber;
             this.currentTracksPath = currentTracksPath;
             this.currentTrack = currentTrack;
+        }
+
+        public Path file(){
+            return currentTrack.file();
         }
     }
 }
