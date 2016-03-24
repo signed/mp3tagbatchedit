@@ -8,7 +8,6 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class Mp3Album {
@@ -46,12 +45,7 @@ public class Mp3Album {
     }
 
     private void sortTracks(List<Path> allPath) {
-        Collections.sort(allPath, new Comparator<Path>() {
-            @Override
-            public int compare(Path o1, Path o2) {
-                return o1.toAbsolutePath().toString().compareTo(o2.toAbsolutePath().toString());
-            }
-        });
+        Collections.sort(allPath, (o1, o2) -> o1.toAbsolutePath().toString().compareTo(o2.toAbsolutePath().toString()));
     }
 
     private List<Path> readTracksInternal() {

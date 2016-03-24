@@ -42,23 +42,12 @@ public class Mp3 {
     }
 
     public void setTextFor(Tag tag, final String newTitle) {
-        textBodyFor(tag, new Callback<AbstractFrameBodyTextInfo>() {
-            @Override
-            public void call(AbstractFrameBodyTextInfo first) {
-                first.setText(newTitle);
-            }
-        });
+        textBodyFor(tag, first -> first.setText(newTitle));
     }
 
     public void pass(Tag tag, final CallbackWithFallback<String> callback) {
         if(tags.hasFrameFor(tag)){
-            textBodyFor(tag, new Callback<AbstractFrameBodyTextInfo>() {
-
-                @Override
-                public void call(AbstractFrameBodyTextInfo first) {
-                    callback.call(first.getText());
-                }
-            });
+            textBodyFor(tag, first -> callback.call(first.getText()));
         }else{
             callback.fallback();
         }
